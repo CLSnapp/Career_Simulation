@@ -13,7 +13,6 @@ CREATE TABLE "Items" (
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "avgRating" INTEGER NOT NULL DEFAULT 0,
-    "commentId" INTEGER,
 
     CONSTRAINT "Items_pkey" PRIMARY KEY ("id")
 );
@@ -23,6 +22,7 @@ CREATE TABLE "Comments" (
     "id" SERIAL NOT NULL,
     "comment" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
+    "reviewId" INTEGER NOT NULL,
 
     CONSTRAINT "Comments_pkey" PRIMARY KEY ("id")
 );
@@ -31,7 +31,7 @@ CREATE TABLE "Comments" (
 CREATE TABLE "Reviews" (
     "id" SERIAL NOT NULL,
     "review" TEXT NOT NULL,
-    "rating" INTEGER NOT NULL,
+    "rating" INTEGER NOT NULL DEFAULT 0,
     "userId" INTEGER NOT NULL,
     "itemId" INTEGER NOT NULL,
 

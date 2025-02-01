@@ -70,4 +70,6 @@ router.delete("/:id", isLoggedIn, async (req, res, next) => {
   }
 });
 
+
 module.exports = router;
+

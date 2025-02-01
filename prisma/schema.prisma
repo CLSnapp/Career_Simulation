@@ -29,13 +29,14 @@ model Comments {
   userId  Int
   user    Users   @relation(fields: [userId], references: [id], onDelete: Cascade)
   reviewId Int
-  reviews Reviews @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  review Reviews? @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
 }
 
 model Reviews {
   id     Int    @id @default(autoincrement())
   review String
-  rating Int
+  rating Int  @default(0)
   userId Int
   user   Users   @relation(fields: [userId], references: [id], onDelete: Cascade)
   itemId Int
