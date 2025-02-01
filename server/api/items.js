@@ -39,7 +39,6 @@ router.get("/:id", async (req, res, next) => {
     const items = await prisma.items.findFirstOrThrow({
       where: {
         id: parseInt(req.params.id),
-        // reviews: { connect: { _avg: { rating: parseInt(req.params.id) } } },
       },
     });
     const avgRating = await prisma.reviews.aggregate({
