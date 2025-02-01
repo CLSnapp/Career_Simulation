@@ -20,7 +20,6 @@ model Items {
   id          Int       @id @default(autoincrement())
   name        String
   description String
-  avgRating   Int       @default(0)
   review Reviews[]
 }
 
@@ -37,7 +36,7 @@ model Comments {
 model Reviews {
   id     Int    @id @default(autoincrement())
   review String
-  rating Int
+  rating Int  @default(0)
   userId Int
   user   Users   @relation(fields: [userId], references: [id], onDelete: Cascade)
   itemId Int
