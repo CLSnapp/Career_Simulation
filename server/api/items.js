@@ -5,6 +5,7 @@ const JWT = process.env.JWT || "1234";
 const { prisma } = require("../db/common");
 const { getUserId } = require("../db/db");
 
+// Authorize the Token with Id
 const isLoggedIn = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -23,7 +24,7 @@ const isLoggedIn = async (req, res, next) => {
   }
 };
 
-// Get all items
+// Get all Items
 router.get("/", async (req, res, next) => {
   try {
     const items = await prisma.items.findMany();
@@ -33,7 +34,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// Get individual item
+// Get Information on an Individual Item
 router.get("/:id", async (req, res, next) => {
   try {
     const items = await prisma.items.findFirstOrThrow({
@@ -47,7 +48,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// Get individual item reviews
+// Get Individual Item Reviews
 router.get("/:id/reviews", async (req, res, next) => {
   try {
     const reviews = await prisma.reviews.findMany({
@@ -62,7 +63,7 @@ router.get("/:id/reviews", async (req, res, next) => {
   }
 });
 
-// Get individual review
+// Get Individual User Reviews w/ Id
 router.get("/:id/reviews/:reviewId", async (req, res, next) => {
   try {
     const review = await prisma.reviews.findFirst({
@@ -76,7 +77,7 @@ router.get("/:id/reviews/:reviewId", async (req, res, next) => {
   }
 });
 
-// Create a review
+// Create a Review on an Item w/ a Logged-in User
 router.post("/:id/reviews", isLoggedIn, async (req, res, next) => {
   try {
     const reviews = await prisma.reviews.create({
@@ -94,7 +95,7 @@ router.post("/:id/reviews", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// Create a comment on review
+// Create a Comment on an Item w/ a Review w/ Logged-in User
 router.post(
   "/:id/reviews/:reviewId/comments",
   isLoggedIn,

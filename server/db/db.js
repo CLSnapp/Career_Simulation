@@ -1,6 +1,8 @@
 const { prisma } = require("./common");
 const bcrypt = require("bcrypt");
 
+
+//Create a user and hash the password
 const createUser = async (username, password) => {
   try {
     const salt = await bcrypt.genSalt(10);
@@ -17,6 +19,7 @@ const createUser = async (username, password) => {
   }
 };
 
+//Get a user
 const getUser = async (username) => {
   const response = await prisma.users.findFirstOrThrow({
     where: {
@@ -26,6 +29,7 @@ const getUser = async (username) => {
   return response;
 };
 
+//Get a user Id
 const getUserId = async (id) => {
   const response = await prisma.users.findFirstOrThrow({
     where: {

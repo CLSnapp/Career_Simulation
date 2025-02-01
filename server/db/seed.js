@@ -1,7 +1,8 @@
 const db = require("../db/index");
 const { faker } = require("@faker-js/faker");
 const { prisma } = require("../db/common");
-require("dotenv").config();
+requir
+e("dotenv").config();
 
 async function seed() {
   console.log("Seeding the database.");
@@ -32,6 +33,7 @@ async function seed() {
       )
     );
 
+    // Add 10 reviews.
     await Promise.all(
       [...Array(10)].map((_, i) =>
         prisma.reviews.createMany({
@@ -44,7 +46,8 @@ async function seed() {
         })
       )
     );
-
+    
+    // Add 10 comments.
     await Promise.all(
       [...Array(10)].map((_, i) =>
         prisma.comments.createMany({

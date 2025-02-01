@@ -5,6 +5,7 @@ const JWT = process.env.JWT || "1234";
 const { prisma } = require("../db/common");
 const { getUserId } = require("../db/db");
 
+// Authorize the Token with Id
 const isLoggedIn = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -23,7 +24,7 @@ const isLoggedIn = async (req, res, next) => {
   }
 };
 
-// Get comments made by user
+// Get Comments Made by a User
 router.get("/me", isLoggedIn, async (req, res, next) => {
   try {
     const comments = await prisma.comments.findMany({
@@ -38,7 +39,7 @@ router.get("/me", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// Update user review
+// Update a User's Review
 router.put("/:id", isLoggedIn, async (req, res, next) => {
   try {
     const comments = await prisma.comments.update({
@@ -55,7 +56,7 @@ router.put("/:id", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// Delete user comment
+// Delete a User's Comment
 router.delete("/:id", isLoggedIn, async (req, res, next) => {
   try {
     const comments = await prisma.comments.delete({

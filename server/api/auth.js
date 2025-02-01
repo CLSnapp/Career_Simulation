@@ -4,14 +4,14 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 const JWT = process.env.JWT || "1234";
 
-
+// Import functions
 const { createUser, getUser, getUserId } = require("../db/db");
 
 const setToken = (id) => {
   return jwt.sign({ id }, JWT, { expiresIn: "5h" });
 };
 
-// Authorized Token
+// Authorize the Token with Id
 const isLoggedIn = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -29,7 +29,7 @@ const isLoggedIn = async (req, res, next) => {
   }
 };
 
-// Register a new user
+// Register a New User
 router.post("/register", async (req, res, next) => {
   try {
     const { username, password } = req.body;
@@ -41,6 +41,7 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
+// Login a User
 router.post("/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
@@ -57,7 +58,7 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-// Get the currently logged in user
+// Get the Logged-in User's Information
 router.get("/me", isLoggedIn, async (req, res, next) => {
   try {
     res.send(req.user);
