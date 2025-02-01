@@ -39,7 +39,7 @@ router.get("/me", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// Update a User's Review
+// Update a User's Comment
 router.put("/:id", isLoggedIn, async (req, res, next) => {
   try {
     const comments = await prisma.comments.update({

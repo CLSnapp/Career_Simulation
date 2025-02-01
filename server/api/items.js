@@ -34,7 +34,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// Get Information on an Individual Item
+// Get Information on an Individual Item w/Avg Rating
 router.get("/:id", async (req, res, next) => {
   try {
     const items = await prisma.items.findFirstOrThrow({
@@ -42,13 +42,6 @@ router.get("/:id", async (req, res, next) => {
         id: parseInt(req.params.id),
       },
     });
-    const avgRating = await prisma.reviews.aggregate({
-      _avg: {
-        rating: true,
-      },
-    });
-    console.log("Avg rating" + avgRating._avg.rating);
-    res.send({ items, avgRating });
     const avgRating = await prisma.reviews.aggregate({
       _avg: {
         rating: true,
@@ -129,4 +122,3 @@ router.post(
 );
 
 module.exports = router;
-
