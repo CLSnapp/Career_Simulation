@@ -20,7 +20,6 @@ model Items {
   id          Int       @id @default(autoincrement())
   name        String
   description String
-  avgRating   Int       @default(0)
   review Reviews[]
 }
 
