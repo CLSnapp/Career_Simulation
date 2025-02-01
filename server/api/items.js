@@ -39,9 +39,16 @@ router.get("/:id", async (req, res, next) => {
     const items = await prisma.items.findFirstOrThrow({
       where: {
         id: parseInt(req.params.id),
+        // reviews: { connect: { _avg: { rating: parseInt(req.params.id) } } },
       },
     });
-    res.send(items);
+    const avgRating = await prisma.reviews.aggregate({
+      _avg: {
+        rating: true,
+      },
+    });
+    console.log("Avg rating" + avgRating._avg.rating);
+    res.send({ items, avgRating });
   } catch (error) {
     next(error);
   }
@@ -116,4 +123,3 @@ router.post(
 );
 
 module.exports = router;
-
