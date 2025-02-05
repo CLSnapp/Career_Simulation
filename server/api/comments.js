@@ -47,7 +47,7 @@ router.put("/:id", isLoggedIn, async (req, res, next) => {
         id: parseInt(req.params.id),
       },
       data: {
-        comment: req.body.comment
+        comment: req.body.comment,
       },
     });
     res.send(comments);
@@ -64,12 +64,11 @@ router.delete("/:id", isLoggedIn, async (req, res, next) => {
         id: parseInt(req.params.id),
       },
     });
-    res.send(comments);
+    console.log(comments)
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }
 });
 
-
 module.exports = router;
-

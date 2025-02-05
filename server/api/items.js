@@ -42,13 +42,7 @@ router.get("/:id", async (req, res, next) => {
         id: parseInt(req.params.id),
       },
     });
-    const avgRating = await prisma.reviews.aggregate({
-      _avg: {
-        rating: true,
-      },
-    });
-    console.log("Avg rating" + avgRating._avg.rating);
-    res.send({ items, avgRating });
+    res.send(items);
   } catch (error) {
     next(error);
   }
@@ -70,7 +64,7 @@ router.get("/:id/reviews", async (req, res, next) => {
 });
 
 // Get Individual User Reviews w/ Id
-router.get("/:id/reviews/:reviewId", async (req, res, next) => {
+router.get("/reviews/:id", async (req, res, next) => {
   try {
     const review = await prisma.reviews.findFirst({
       where: {
@@ -110,7 +104,7 @@ router.post(
       const comments = await prisma.comments.create({
         data: {
           user: { connect: { id: parseInt(req.user.id) } },
-          review: { connect: { id: parseInt(req.params.id) } },
+          reviews: { connect: { id: parseInt(req.params.id) } },
           comment: req.body.comment,
         },
       });
